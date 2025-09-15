@@ -27,17 +27,20 @@ curl http://localhost:8081
 
 ## 🏗️ Build and Testing Commands
 
-### iOS Development
+### iOS Development (Metro + Safari Workflow)
 ```bash
-# Run on iOS simulator
+# Primary development workflow (RECOMMENDED)
+# 1. Start Metro bundler
+npx expo start
+
+# 2. Open iOS Simulator
+open -a Simulator
+
+# 3. Open Safari in simulator and navigate to:
+# http://localhost:8081
+
+# Alternative: Native build (when CocoaPods SSL issues resolved)
 npx expo run:ios
-
-# Run on specific iOS simulator
-npx expo run:ios --device "iPhone 15 Plus"
-
-# Build iOS (requires CocoaPods working)
-cd ios && pod install && cd ..
-npx react-native run-ios
 ```
 
 ### Android Development (Future)
