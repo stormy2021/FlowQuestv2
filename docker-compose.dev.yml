@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # Main development environment
+  development:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ..:/workspace:cached
+      - node_modules:/workspace/node_modules
+      - mobile_node_modules:/workspace/mobile/node_modules
+      - backend_node_modules:/workspace/backend/node_modules
+    command: sleep infinity
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - flowquest-dev
+
+  # Optional PostgreSQL for local development/mocking
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: flowquest_dev
+      POSTGRES_USER: flowquest
+      POSTGRES_PASSWORD: dev_password_change_me
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    networks:
+      - flowquest-dev
+
+  # Redis for development caching (optional)
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - flowquest-dev
+
+volumes:
+  node_modules:
+  mobile_node_modules:
+  backend_node_modules:
+  postgres_data:
+  redis_data:
+
+networks:
+  flowquest-dev:
+    driver: bridge

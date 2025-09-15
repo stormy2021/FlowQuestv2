@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "FlowQuest",
+    "slug": "flowquest",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "sdkVersion": "50.0.0",
+    "platforms": ["ios", "android"],
+    "userInterfaceStyle": "light",
+    "main": "index.js",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.flowquest.mobile"
+    },
+    "android": {
+      "package": "com.flowquest.app"
+    }
+  },
+  "name": "FlowQuest",
+  "displayName": "FlowQuest"
+}

@@ -1,0 +1,42 @@
+{
+  "name": "@flowquest/backend",
+  "version": "0.1.0",
+  "description": "FlowQuest Azure Functions backend",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npm run clean && tsc",
+    "start": "func start --typescript",
+    "dev": "npm run build && npm run start",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.1.0",
+    "@azure/identity": "^4.0.0",
+    "@azure/keyvault-secrets": "^4.7.0",
+    "@azure/web-pubsub": "^1.1.1",
+    "@flowquest/shared": "*",
+    "axios": "^1.6.2"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.0.5",
+    "@types/jest": "^29.5.8",
+    "@types/node": "^18.19.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.2",
+    "jest": "^29.7.0",
+    "prettier": "^3.1.1",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

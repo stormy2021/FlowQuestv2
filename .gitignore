@@ -1,0 +1,93 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build outputs
+build/
+dist/
+out/
+*.tsbuildinfo
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Temporary folders
+tmp/
+temp/
+
+# React Native / Expo
+.expo/
+.expo-shared/
+web-build/
+
+# iOS
+mobile/ios/build/
+mobile/ios/Pods/
+mobile/ios/*.xcuserstate
+mobile/ios/*.xccheckout
+mobile/ios/*.moved-aside
+mobile/ios/project.xcworkspace/
+mobile/ios/xcuserdata/
+mobile/ios/DerivedData/
+mobile/ios/.xcode.env.local
+
+# Android
+mobile/android/build/
+mobile/android/app/build/
+mobile/android/.gradle/
+mobile/android/local.properties
+
+# Bundle artifacts
+*.jsbundle
+
+# Backend specific
+backend/dist/
+backend/lib/
+
+# Database
+*.sqlite
+*.db
+
+# FlowQuest specific
+FlowQuestTemp/
