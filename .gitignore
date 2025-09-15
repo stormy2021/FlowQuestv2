@@ -95,4 +95,5 @@ FlowQuestTemp/
 # Sensitive/Private files
 CLAUDE.md
 docs/My Resume.md
+docs/External_References.md
 mobile/android/app/debug.keystore
