@@ -91,3 +91,8 @@ backend/lib/
 
 # FlowQuest specific
 FlowQuestTemp/
+
+# Sensitive/Private files
+CLAUDE.md
+docs/My Resume.md
+mobile/android/app/debug.keystore
