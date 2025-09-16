@@ -70,95 +70,87 @@ graph LR
 ## 🚀 Quick Start
 
 ### Prerequisites
-- **Docker Desktop** - For containerized development environment
-- **Cursor IDE** - Recommended (or VS Code with Dev Containers extension)
-- **ServiceNow Instance** - Vancouver, Washington, or Zurich release
-- **Mobile Development** - iOS 13+ / Android 7.0+ target devices (for testing)
-- **Azure Account** - For minimal backend functions (optional for development)
+- **Docker Desktop** - For PostgreSQL and Redis development services
+- **Node.js 18+** - For React Native development
+- **iOS Simulator** - macOS with Xcode for iOS development
+- **ServiceNow Instance** - Vancouver, Washington, or Zurich release (future integration)
+- **Azure Account** - For minimal backend functions (future deployment)
 
 ### Development Setup
 
-#### Option 1: Docker Development Environment (Recommended)
+**Current Status**: Environment functional with limitations (see Technical Issues below)
+
+#### Quick Start - Current Working Method
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/flowquest.git
-cd flowquest
+git clone https://github.com/stormy2021/FlowQuestv2.git
+cd FlowQuestv2
 
 # Start development services (PostgreSQL, Redis)
 npm run docker:dev
 
-# View running containers
-docker ps
+# Install dependencies
+cd mobile
+npm install --legacy-peer-deps
 
-# Check service logs
-npm run docker:logs
+# Start Metro bundler (keep this running)
+npm start
 
-# Stop services when done
-npm run docker:down
+# Open iOS Simulator
+open -a Simulator
+
+# In iOS Simulator, open Safari and navigate to:
+# http://localhost:8081
 ```
 
-#### Option 2: Cursor IDE Integration
-
-1. Open project in Cursor IDE
-2. When prompted, choose "Reopen in Container"
-3. Development environment will automatically build and start
-4. All services (Node.js, PostgreSQL, Redis, Android SDK) ready to use
-
-#### Option 3: Traditional Setup
+#### Alternative Setup (When Issues Resolved)
 
 ```bash
-# Install dependencies across monorepo
-npm install
+# Future: Native iOS build (currently blocked by infrastructure issues)
+npx expo run:ios
 
-# Start React Native Metro bundler
-npm run mobile:start
-
-# Run on iOS (new terminal)
-npm run mobile:ios
-
-# Run on Android (new terminal)
-npm run mobile:android
+# Future: Android build
+npx expo run:android
 ```
 
-### Development Services
+#### Docker Services
 
 When using Docker setup:
 - **PostgreSQL**: `localhost:5432` (db: flowquest_dev, user: flowquest)
 - **Redis**: `localhost:6379`
 - **React Native Metro**: `localhost:8081`
 
-### ServiceNow Configuration
+## ⚠️ Current Technical Status
 
-1. **Create OAuth Application** in ServiceNow:
-   ```
-   System OAuth > Application Registry > Create > OAuth API endpoint for external clients
-   ```
+### Working Configuration
+- ✅ **Development Environment**: Metro + Safari workflow functional
+- ✅ **Feature Development**: Ready for PRD implementation
+- ✅ **Docker Services**: PostgreSQL and Redis operational
+- ✅ **Basic Navigation**: Hub structure with placeholder screens
 
-2. **Configure API Scopes**:
-   ```
-   useraccount, glide.read, glide.write, user_profile
-   ```
+### Critical Issues (P0)
+- 🚨 **CocoaPods SSL Certificate** - Blocking full Expo testing capabilities
+- 🚨 **@babel/runtime Module Resolution** - JavaScript bundle generation fails
+- **Workaround**: Using Metro web interface via iOS Simulator Safari
 
-3. **Set Webhook Endpoints** (for real-time features):
-   ```
-   https://your-azure-function.azurewebsites.net/api/servicenow-webhook
-   ```
+### Development Strategy
+- **Current Approach**: Build features using Metro + Safari while resolving infrastructure issues
+- **Parallel Track**: Resolve CocoaPods and babel issues for production deployment
+- **Goal**: Full Expo testing capabilities for TestFlight and App Store deployment
 
-### Environment Configuration
+For detailed issue tracking, see: `docs/ISSUES.md`
 
-Create `.env` file in the project root:
+### Future ServiceNow Configuration
 
-```env
-# ServiceNow Configuration
-SERVICENOW_INSTANCE_URL=https://your-instance.service-now.com
-OAUTH_CLIENT_ID=your-oauth-client-id
-OAUTH_CLIENT_SECRET=your-oauth-client-secret
+Once integration features are implemented:
 
-# Azure Configuration (Optional)
-AZURE_FUNCTIONS_ENDPOINT=https://your-function-app.azurewebsites.net
-SIGNALR_CONNECTION_STRING=your-signalr-connection-string
-```
+1. **OAuth Application Setup** in ServiceNow
+2. **API Scope Configuration** (useraccount, glide.read, glide.write, user_profile)
+3. **Webhook Endpoints** for real-time notifications
+4. **Environment Configuration** with ServiceNow instance details
+
+See: `prds/servicenow-integration.md` for detailed integration requirements.
 
 ## 📱 Screenshots
 
@@ -202,11 +194,24 @@ FlowQuest brings ServiceNow to life with engaging animations:
 
 ## 📚 Documentation
 
-- [**Architecture Guide**](./ARCHITECTURE.md) - Detailed technical architecture
+### Product Requirements
+- [**Product Requirements**](./prds/) - Focused PRD documents for each major feature
+  - `work-hub-mvp.md` - Core incident management with card interface
+  - `asset-management.md` - ITAM lifecycle and contract management
+  - `people-hr-workflows.md` - HR onboarding and case management
+  - `user-experience-gamification.md` - Personal achievements and contributions
+  - `servicenow-integration.md` - OAuth 2.0 and real-time API integration
+  - `offline-caching-system.md` - SQLite caching and synchronization
+
+### Technical Documentation
+- [**Technical Architecture**](./docs/ARCHITECTURE.md) - Detailed system architecture
 - [**Client Architecture**](./docs/CLIENT_ARCHITECTURE.md) - React Native implementation details
-- [**Backend Guide**](./docs/MINIMAL_BACKEND.md) - Azure Functions setup
-- [**API Integration**](./docs/API_INTEGRATION.md) - ServiceNow API usage patterns
-- [**Design System**](./docs/UI_DESIGN_SYSTEM.md) - Component library and animations
+- [**Backend Guide**](./docs/MINIMAL_BACKEND.md) - Azure Functions minimal backend
+- [**Development Workflow**](./docs/DEVELOPMENT.md) - Daily development commands
+- [**Issue Tracking**](./docs/ISSUES.md) - Current technical issues and solutions
+
+### Historical Reference
+- [**Historical Documentation**](./archive/) - Past debugging sessions and archived planning
 
 ## 🤝 Contributing
 
@@ -226,34 +231,39 @@ This is my first open-source project, so I'm learning as I go! Contributions and
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
 
-## 📊 Roadmap
+## 📊 Current Development Roadmap
 
-### Phase 1: MVP (Q1 2025)
-- 🔄 Core hub framework (Work, Assets, People, Me)
-- 🔄 Direct ServiceNow API integration
-- 🔄 Basic animations and gestures
-- 🔄 Local caching with SQLite
-- 🔄 OAuth authentication flow
+### Phase 1: Core Features (Current - Next 4 weeks)
+**Status**: Ready to begin from PRD documents
+- 🔄 **Work Hub MVP** - Card-based incident interface with swipe gestures
+- 🔄 **Mock ServiceNow Data** - Realistic test data for immediate development
+- 🔄 **Priority Visual System** - Color-coded cards with pulsing animations
+- 🔄 **Basic Gesture System** - Swipe-to-resolve with haptic feedback
 
-### Phase 2: Enhanced UX (Q2 2025)
-- 🔄 Advanced animations and micro-interactions
-- 🔄 Real-time notifications via webhooks
-- 🔄 Offline capability with sync
-- 🔄 Search and filtering
-- 🔄 Dark mode support
+### Phase 2: Extended Hubs (Weeks 5-8)
+**Dependencies**: Work Hub MVP complete
+- 🔄 **Asset Management** - Lifecycle visualization and contract alerts
+- 🔄 **People Hub** - HR onboarding gamification
+- 🔄 **Me Hub** - Personal achievements and contribution tracking
 
-### Phase 3: Enterprise Features (Q3 2025)
-- 📋 Insight Hub (Analytics, GRC)
-- 📋 Security Hub (SecOps workflows)  
-- 📋 Automation Hub (Flow Designer integration)
-- 📋 Multi-instance support
-- 📋 Enterprise SSO integration
+### Phase 3: ServiceNow Integration (Weeks 9-12)
+**Prerequisites**: Infrastructure issues resolved
+- 🔄 **OAuth 2.0 PKCE** - Secure ServiceNow authentication
+- 🔄 **Real-time Webhooks** - Instant notifications via Azure SignalR
+- 🔄 **Direct API Integration** - Replace mock data with live ServiceNow data
 
-### Phase 4: Platform & Ecosystem (Q4 2025)
-- 📋 Plugin architecture for custom workflows
-- 📋 Third-party integrations (Slack, Teams)
-- 📋 Advanced analytics and reporting
-- 📋 Community marketplace
+### Phase 4: Production Readiness (Weeks 13-16)
+**Requirements**: Full native build capabilities
+- 📋 **Offline SQLite Caching** - Smart sync and conflict resolution
+- 📋 **Performance Optimization** - 60+ FPS animations on devices
+- 📋 **TestFlight Beta** - Device testing and user feedback
+- 📋 **App Store Submission** - Production release preparation
+
+### Infrastructure Blockers (Parallel Track)
+**Critical**: Resolve for production deployment
+- 🚨 **CocoaPods SSL Certificate Issue** - Enable full Expo testing
+- 🚨 **@babel/runtime Module Resolution** - Fix JavaScript bundle generation
+- **Target**: Resolve by end of Phase 2 for Phase 3 integration work
 
 ## 🤔 Why This Project?
 

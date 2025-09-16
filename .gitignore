@@ -91,6 +91,7 @@ backend/lib/
 
 # FlowQuest specific
 FlowQuestTemp/
+@archive/
 
 # Sensitive/Private files
 CLAUDE.md
